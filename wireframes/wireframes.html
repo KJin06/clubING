@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- PUBLISH-START -->
+<title>clubING 와이어프레임</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+<main class="page">
+
+  <!-- ===================== 머리말 ===================== -->
+  <header class="intro">
+    <span class="eyebrow">학술제 UI 시안 · 1차 · 2026-10-05</span>
+    <h1>clubING 와이어프레임</h1>
+    <p>임원진이 클럽이와 함께 인수인계를 하고, 행사를 준비하고, 회고로 다음 해를 채우는 흐름을 5개 시나리오와 9개 화면으로 정리했습니다. 색과 디자인은 빼고 배치와 흐름만 본 저해상도 회색조 시안입니다.</p>
+    <div class="spec"><span>16:9 · 1920×1080 (PC)</span><span>회색조 저해상도</span><span>시나리오 5개 · 화면 9개</span><span>주황 번호 = 설명 주석</span></div>
+    <div class="toolbar">
+      <button class="toggle" id="toggle-anno" type="button" aria-pressed="true"><span class="dot">1</span>주석 번호 보이기</button>
+    </div>
+  </header>
+
+  <!-- ===================== 페르소나 ===================== -->
+  <section class="sec" id="personas">
+    <header>
+      <h2>누가 쓰나요</h2>
+      <p>서비스 사용자는 학과 학생회·동아리의 임원진뿐입니다. 기획안 2장의 두 페르소나를 그대로 씁니다.</p>
+    </header>
+    <div class="personas">
+      <article class="persona">
+        <div class="who"><h3>A. 이임 임원 김진경</h3><span class="code">학생회 회장 · 임기 마지막 달</span></div>
+        <q>이제 넘겨야 하는데, 인수인계를 어떻게 해야 할지 모르겠다.</q>
+        <ul>
+          <li>넘길 자료를 골라내기 어렵다</li>
+          <li>행사별 이슈와 해결 방법을 전하고 싶다</li>
+          <li>대용량 파일 없이 권한만 넘기고 싶다</li>
+        </ul>
+        <span class="code">주로 쓰는 화면: W-05 · W-07</span>
+      </article>
+      <article class="persona">
+        <div class="who"><h3>B. 신임 임원 참상아</h3><span class="code">새 회장 · 임원 경험 없음</span></div>
+        <q>막 취임했는데, 어떤 일부터 해야 할지 모르겠다.</q>
+        <ul>
+          <li>이번 주·이번 달 할 일을 알려주면 좋겠다</li>
+          <li>행사별로 해야 할 일과 그 이유를 알고 싶다</li>
+          <li>활동을 돌아보고 개선하도록 도와주면 좋겠다</li>
+        </ul>
+        <span class="code">주로 쓰는 화면: W-01 · W-02 · W-03 · W-04 · W-06</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== 시나리오 ===================== -->
+  <section class="sec" id="scenarios">
+    <header>
+      <h2>사용자 시나리오</h2>
+      <p>S1부터 S4까지 이어 읽으면 인수인계, 첫 주, 행사 준비, 회고, 다음 해 플레이북으로 한 해가 한 바퀴 돕니다. 단계별 표는 <span class="code">사용자시나리오.md</span>에 있습니다.</p>
+    </header>
+    <div class="scenarios">
+      <article class="scn">
+        <span class="num">S1</span>
+        <h3>김진경, 인터뷰로 인수인계를 끝낸다</h3>
+        <p class="meta">임기 말(11월) · 자료 정리 대신 클럽이 질문에 답하고, 신임 회장에게 권한을 넘긴다.</p>
+        <div class="flow"><a href="#w05">W-05 인수인계 인터뷰</a><span class="arrow">→</span><a href="#w07">W-07 임원·권한 이전</a><span class="sig">인터뷰형 인수인계</span></div>
+      </article>
+      <article class="scn">
+        <span class="num">S2</span>
+        <h3>참상아, 취임 첫 주에 무엇부터 할지 안다</h3>
+        <p class="meta">취임 첫 주(12월) · 홈에서 이번 주 할 일 3개와 이유를 보고, 캘린더로 1년 흐름을 잡는다.</p>
+        <div class="flow"><a href="#w01">W-01 홈</a><span class="arrow">→</span><a href="#w02">W-02 캘린더</a><span class="arrow">→</span><a href="#w04">W-04 플레이북</a><span class="sig">플레이북·캘린더</span></div>
+      </article>
+      <article class="scn">
+        <span class="num">S3</span>
+        <h3>작년 행사를 복제해 새내기 배움터 준비를 시작한다</h3>
+        <p class="meta">행사 석 달 전 · 날짜만 넣으면 작년 체크리스트와 회고가 올해 일정으로 옮겨진다.</p>
+        <div class="flow"><a href="#w03">W-03 새 행사</a><span class="arrow">→</span><a href="#w04">W-04 플레이북</a><span class="arrow">→</span><a href="#w01">W-01 홈</a><span class="sig">플레이북·캘린더</span></div>
+      </article>
+      <article class="scn">
+        <span class="num">S4</span>
+        <h3>행사가 끝나면 3분 회고로 내년 플레이북을 채운다</h3>
+        <p class="meta">종강총회 다음 날 · 참여 임원 모두가 3문항에 답하고, 작년 개선점을 올해 지켰는지 체크한다.</p>
+        <div class="flow"><a href="#w01">W-01 홈</a><span class="arrow">→</span><a href="#w06">W-06 회고</a><span class="arrow">→</span><a href="#w04">W-04 플레이북</a><span class="sig">회고 루프</span></div>
+      </article>
+      <article class="scn">
+        <span class="num">S5</span>
+        <h3>처음 여는 행사는 다른 동아리 노하우로 시작한다</h3>
+        <p class="meta">기록이 없는 학술제 부스 · 코인으로 다른 조직의 플레이북을 열람하고, 우리 노하우를 공유해 보상을 받는다.</p>
+        <div class="flow"><a href="#w08">W-08 노하우 공유</a><span class="arrow">→</span><a href="#w09">W-09 노하우 상세</a><span class="arrow">→</span><a href="#w03">W-03 새 행사</a><span class="sig">수익 모델</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== 화면 ===================== -->
+  <section class="sec" id="screens">
+    <header>
+      <h2>화면 9개</h2>
+      <p>모든 화면은 왼쪽 메뉴와 위쪽 검색창을 공유합니다. 기존 MVP의 위쪽 탭 메뉴를 넓은 PC 화면에 맞게 왼쪽 메뉴로 바꿨습니다.</p>
+    </header>
+    <nav class="jump" aria-label="화면 바로가기">
+      <a href="#w01">W-01 홈</a><a href="#w02">W-02 캘린더</a><a href="#w03">W-03 새 행사</a><a href="#w04">W-04 플레이북</a><a href="#w05">W-05 인터뷰</a><a href="#w06">W-06 회고</a><a href="#w07">W-07 권한 이전</a><a href="#w08">W-08 노하우 공유</a><a href="#w09">W-09 노하우 상세</a>
+    </nav>
+
+    <!-- ========== W-01 홈 ========== -->
+    <article class="screen" id="w01">
+      <div class="screen-head">
+        <h3><span class="code">W-01</span> 홈 · 클럽이 코칭</h3>
+        <div class="tags"><span>S2</span><span>S3</span><span>S4</span><button class="size-btn" type="button" data-target="fw01">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">로그인하면 처음 보는 화면. 검색하지 않아도 클럽이가 이번 주에 할 일을 먼저 알려 줍니다.</p>
+      <div class="frame-wrap" id="fw01">
+        <div class="frame w01">
+          <aside class="side" data-active="home"></aside>
+          <div class="main">
+            <header class="top" data-title="홈"></header>
+            <div class="body">
+              <div class="box fill coach" data-a="1">
+                <div class="clubee">클럽이</div>
+                <div class="grow">
+                  <p class="eyebrow">클럽이 코치 · 12월 2일 (수)</p>
+                  <p class="say">취임 첫 주예요. 이번 주엔 3가지만 하면 돼요.</p>
+                  <p class="muted">김진경 회장이 남긴 인수인계 답변 22개와 행사 6개를 받았어요.</p>
+                </div>
+                <div class="row"><span class="btn ghost">인수인계 요약 보기</span><span class="btn pri">할 일 시작하기</span></div>
+              </div>
+              <div class="cols">
+                <div class="box" data-a="2">
+                  <div class="box-h"><h3>이번 주 할 일</h3><span class="muted">11월 29일 ~ 12월 5일</span></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">종강총회 장소 예약</p><div class="sub"><span class="badge k">D-2</span>종강총회 · 12월 4일 (금)</div><p class="why">연말이라 강의실·식당 예약이 2주 전에 다 찹니다</p></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">임원 첫 회의 열고 담당 나누기</p><div class="sub"><span class="badge">D-3</span>인수인계 · 12월 5일 (토)</div><p class="why">플레이북마다 담당자가 있어야 할 일이 각자 홈에 뜹니다</p></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">새내기 배움터 숙소 견적 2곳 받기</p><div class="sub"><span class="badge">D-3</span>새내기 배움터 · 12월 5일 (토)</div><p class="why">작년에 한 곳만 알아봤다가 1인당 1만 원 더 냈습니다</p></div></div>
+                  <div class="task"><span class="chk on">✓</span><div class="t"><p class="title done">학생회 계좌 명의 변경</p><div class="sub"><span class="badge">완료</span>인수인계</div></div></div>
+                </div>
+                <div class="stack">
+                  <div class="box" data-a="3">
+                    <div class="box-h"><h3>다가오는 행사</h3><span class="btn ghost">캘린더</span></div>
+                    <div class="ev"><div class="row between"><b>종강총회</b><span class="badge k">D-16</span></div><span class="muted">12월 18일 (금) · 준비 1/6</span><div class="bar dark p17"><i></i></div></div>
+                    <div class="ev"><div class="row between"><b>새내기 배움터</b><span class="badge">D-80</span></div><span class="muted">2월 20일 (토) · 준비 0/9</span><div class="bar p10"><i></i></div></div>
+                    <div class="ev"><div class="row between"><b>개강총회</b><span class="badge">D-91</span></div><span class="muted">3월 3일 (수) · 준비 0/5</span><div class="bar"><i></i></div></div>
+                  </div>
+                </div>
+                <div class="stack">
+                  <div class="box fill" data-a="4">
+                    <div class="box-h"><h3>회고 요청</h3></div>
+                    <p class="small">끝난 행사는 3문항 회고를 남겨 주세요. 내년 플레이북이 됩니다.</p>
+                    <div class="ev"><div class="row between"><b>학술제 부스</b><span class="badge">D+4</span></div><span class="muted">임원 5명 중 2명 작성</span></div>
+                    <span class="btn pri">3분 회고 쓰기</span>
+                  </div>
+                  <div class="box" data-a="5">
+                    <div class="box-h"><h3>받은 인수인계</h3></div>
+                    <div class="kpi"><div><b>6</b><span class="muted">행사 플레이북</span></div><div><b>22</b><span class="muted">인터뷰 답변</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>클럽이 코칭 한마디.</b> 오늘 상황(취임 첫 주, 기한 지난 할 일, 회고 요청 등)에 맞춰 한 문장으로 바뀝니다.</span></li>
+        <li><span><b>이번 주 할 일.</b> 모든 행사 플레이북에서 이번 주 마감인 일만 모읍니다. 할 일마다 <b>이유</b>가 붙어 있어 처음 하는 임원도 왜 지금 해야 하는지 압니다.</span></li>
+        <li><span><b>다가오는 행사.</b> D-day와 준비율을 보여 주고, 누르면 플레이북(W-04)으로 갑니다.</span></li>
+        <li><span><b>회고 요청.</b> 행사 다음 날 자동으로 뜨고, 누르면 회고(W-06)로 갑니다.</span></li>
+        <li><span><b>받은 인수인계.</b> 이전 임원에게서 넘어온 것의 양을 보여 줘 "무엇을 받았는지" 바로 압니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-02 캘린더 ========== -->
+    <article class="screen" id="w02">
+      <div class="screen-head">
+        <h3><span class="code">W-02</span> 연간 운영 캘린더</h3>
+        <div class="tags"><span>S2</span><button class="size-btn" type="button" data-target="fw02">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">행사 날짜만 정하면 플레이북의 D-day 할 일이 달력에 자동으로 놓입니다. 1년 흐름과 이번 달 할 일을 한 번에 봅니다.</p>
+      <div class="frame-wrap" id="fw02">
+        <div class="frame w02">
+          <aside class="side" data-active="calendar"></aside>
+          <div class="main">
+            <header class="top" data-title="캘린더"></header>
+            <div class="body">
+              <div class="cal">
+                <div class="row between">
+                  <div class="row"><span class="btn ghost">‹</span><span class="month">2026년 12월</span><span class="btn ghost">›</span><span class="btn ghost">오늘</span></div>
+                  <div class="row" data-a="2"><span class="chip on">월</span><span class="chip">연간</span><span class="chip on">행사</span><span class="chip on">준비 일정</span><span class="chip on">회고</span><span class="chip">내 담당만</span></div>
+                </div>
+                <div class="legend"><span><i class="le"></i>행사</span><span><i class="lt"></i>플레이북 준비 일정</span><span><i class="lr"></i>회고 요청</span></div>
+                <div class="grid" data-a="1">
+                  <div class="dow">일</div><div class="dow">월</div><div class="dow">화</div><div class="dow">수</div><div class="dow">목</div><div class="dow">금</div><div class="dow">토</div>
+                  <div class="out">29</div><div class="out">30</div><div>1<span class="ct r">학술제 부스 회고</span></div><div class="today"><b>2</b></div><div>3</div><div>4<span class="ct">종강총회 장소 예약</span></div><div>5<span class="ct">임원 첫 회의</span><span class="ct">새터 숙소 견적</span></div>
+                  <div>6</div><div>7</div><div>8<span class="ct">종강총회 공지</span></div><div>9</div><div>10<span class="ct">회비 이월 확인</span></div><div>11<span class="ct">참석 신청 받기</span></div><div>12</div>
+                  <div>13</div><div>14</div><div>15<span class="ct">인원 확정</span></div><div>16</div><div>17<span class="ct">현수막·물품</span></div><div class="sel">18<span class="e">종강총회</span><span class="ct">사진 기록</span></div><div>19<span class="ct r">종강총회 회고</span></div>
+                  <div>20</div><div>21</div><div>22<span class="ct">새터 버스 예약</span></div><div>23</div><div>24</div><div>25</div><div>26</div>
+                  <div>27</div><div>28</div><div>29</div><div>30<span class="ct">새터 참가 신청 폼</span></div><div>31</div><div class="out">1</div><div class="out">2</div>
+                </div>
+              </div>
+              <div class="stack">
+                <div class="box" data-a="3">
+                  <div class="box-h"><h3>12월 18일 (금)</h3><span class="badge k">D-16</span></div>
+                  <div class="row"><div class="img" style="width:72px;height:56px"></div><div><b>종강총회</b><p class="muted">공학관 세미나실 · 예상 60명</p></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">현수막·물품 준비</p><div class="sub"><span class="badge">D-1</span><span class="av">이</span>이도윤</div></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">사진 기록 남기기</p><div class="sub"><span class="badge">D-day</span><span class="av">정</span>정하은</div><p class="why">상위기관 활동 보고서에 사진이 필요합니다</p></div></div>
+                  <span class="btn ghost">플레이북 열기</span>
+                </div>
+                <div class="box" data-a="4">
+                  <div class="box-h"><h3>한 해 흐름</h3><span class="muted">행사 6개</span></div>
+                  <div class="year"><span class="has now">12</span><span>1</span><span class="has">2</span><span class="has">3</span><span class="has">4</span><span class="has">5</span><span>6</span><span>7</span><span class="has">9</span><span class="has">10</span><span class="has">11</span><span>11말</span></div>
+                  <p class="muted small" style="margin-top:10px">12 종강총회 · 2 새내기 배움터 · 3 개강총회·MT · 4 중간고사 간식 · 5 체육대회 · 9~11 축제·학술제 · 11말 임원 교체</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>월 달력.</b> 진한 막대는 행사, 테두리 칸은 플레이북에서 온 준비 일정, 점선은 회고 요청입니다. 행사 날짜를 옮기면 준비 일정도 같이 옮겨집니다.</span></li>
+        <li><span><b>보기 전환과 필터.</b> 월/연간 보기, 종류별 필터, "내 담당만" 보기.</span></li>
+        <li><span><b>날짜 상세.</b> 고른 날의 행사와 그 주 할 일, 담당자, 이유를 보여 줍니다.</span></li>
+        <li><span><b>한 해 흐름.</b> 학생회의 1년(12월 취임부터 11월 말 임원 교체까지)을 한 줄로 보여 줘 신임 임원이 큰 그림을 잡게 합니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-03 새 행사 ========== -->
+    <article class="screen" id="w03">
+      <div class="screen-head">
+        <h3><span class="code">W-03</span> 새 행사 만들기 · 작년 행사 복제</h3>
+        <div class="tags"><span>S3</span><span>S5</span><button class="size-btn" type="button" data-target="fw03">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">행사 목록에서 "새 행사"를 누르면 뜨는 창. 빈 문서가 아니라 작년 행사나 다른 동아리의 노하우에서 시작합니다.</p>
+      <div class="frame-wrap" id="fw03">
+        <div class="frame w03">
+          <aside class="side" data-active="events"></aside>
+          <div class="main">
+            <header class="top" data-title="행사·플레이북"></header>
+            <div class="body">
+              <div class="bg-list">
+                <div class="box"><b>종강총회</b><div class="ln w60"></div><div class="ln w45"></div><div class="bar p17"><i></i></div></div>
+                <div class="box"><b>새내기 배움터</b><div class="ln w60"></div><div class="ln w45"></div><div class="bar"><i></i></div></div>
+                <div class="box"><b>개강총회</b><div class="ln w60"></div><div class="ln w45"></div><div class="bar"><i></i></div></div>
+                <div class="box dash"><b>+ 새 행사</b></div>
+                <div class="box"><b>MT</b><div class="ln w60"></div><div class="ln w45"></div></div>
+                <div class="box"><b>중간고사 간식</b><div class="ln w60"></div><div class="ln w45"></div></div>
+                <div class="box"><b>체육대회</b><div class="ln w60"></div><div class="ln w45"></div></div>
+                <div class="box"><b>학술제 부스</b><div class="ln w60"></div><div class="ln w45"></div></div>
+              </div>
+              <div class="dim"></div>
+              <div class="modal">
+                <div class="row between"><h2>새 행사 만들기</h2><div class="steps"><b>1 시작 방법</b><i></i><b>2 작년 행사 고르기</b><i></i><span>3 날짜·담당</span></div></div>
+                <div class="ways" data-a="1">
+                  <div class="way on"><span class="badge k">추천</span><h4>작년 행사 복제해서 시작</h4><p class="muted small">체크리스트, 회고, 인수인계 답변을 그대로 가져와요</p></div>
+                  <div class="way"><span class="badge">코인</span><h4>다른 동아리 노하우로 시작</h4><p class="muted small">처음 여는 행사라면 노하우 공유에서 가져와요</p></div>
+                  <div class="way"><span class="badge">빈 행사</span><h4>처음부터 만들기</h4><p class="muted small">클럽이가 기본 할 일 5개를 제안해요</p></div>
+                </div>
+                <div class="split">
+                  <div data-a="2">
+                    <p class="label">어떤 행사를 복제할까요?</p>
+                    <div class="pick on"><span class="radio"></span><div class="grow"><b>2026 새내기 배움터</b><p class="muted small">2026년 2월 21일 · 회고 1건 · 인터뷰 답변 3개</p></div><span class="badge">만족도 높음</span></div>
+                    <div class="pick"><span class="radio"></span><div class="grow"><b>2025 새내기 배움터</b><p class="muted small">2025년 2월 22일 · 회고 2건</p></div></div>
+                    <div class="pick"><span class="radio"></span><div class="grow"><b>2026 MT</b><p class="muted small">2026년 3월 28일 · 회고 1건</p></div></div>
+                  </div>
+                  <div class="stack">
+                    <div data-a="3">
+                      <p class="label">함께 복제되는 것</p>
+                      <div class="copied"><div><b>9</b><span class="muted small">체크리스트 (D-day 기준)</span></div><div><b>1</b><span class="muted small">작년 회고</span></div><div><b>3</b><span class="muted small">인수인계 답변</span></div><div><b>2</b><span class="muted small">이전 임원 코멘트</span></div></div>
+                    </div>
+                    <div data-a="4">
+                      <p class="label">올해 행사 날짜</p>
+                      <div class="row"><div class="field grow">2027년 2월 20일 (토)</div><div class="field">1박 2일</div></div>
+                      <div class="row" style="margin-top:12px"><div class="clubee sm">클럽이</div><p class="small">날짜만 넣으면 D-80 숙소 견적부터 할 일을 캘린더에 넣어 둘게요.</p></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row between"><span class="btn ghost">이전</span><div class="row"><span class="btn ghost">취소</span><span class="btn pri big">플레이북 만들기</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>시작 방법 3가지.</b> 작년 행사 복제(추천), 다른 동아리 노하우(코인, S5), 빈 행사.</span></li>
+        <li><span><b>복제할 행사 고르기.</b> 같은 종류의 지난 행사를 회고 수, 만족도와 함께 보여 줍니다.</span></li>
+        <li><span><b>함께 복제되는 것.</b> 체크리스트뿐 아니라 작년 회고와 인수인계 답변도 같이 따라와 플레이북 옆에 붙습니다.</span></li>
+        <li><span><b>올해 날짜.</b> 날짜를 넣으면 D-day 기준 할 일이 올해 달력으로 옮겨집니다 (W-02).</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-04 플레이북 ========== -->
+    <article class="screen" id="w04">
+      <div class="screen-head">
+        <h3><span class="code">W-04</span> 행사 플레이북</h3>
+        <div class="tags"><span>S2</span><span>S3</span><span>S4</span><button class="size-btn" type="button" data-target="fw04">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">한 행사의 D-day 체크리스트와, 작년 회고·이전 임원 답변을 나란히 보는 화면. "기록"을 "올해 할 일"로 바꾸는 clubING의 중심 화면입니다.</p>
+      <div class="frame-wrap" id="fw04">
+        <div class="frame w04">
+          <aside class="side" data-active="events"></aside>
+          <div class="main">
+            <header class="top" data-title="행사·플레이북"></header>
+            <div class="body">
+              <div class="head" data-a="1">
+                <div class="grow"><h2>2027 새내기 배움터</h2><p class="muted">2월 20일 (토) ~ 21일 · 강원 홍천 · 예상 80명 · 2026 새내기 배움터에서 복제</p></div>
+                <span class="badge k">D-30</span>
+                <div class="prog"><span class="small">준비 2 / 9 완료</span><div class="bar dark p17"><i></i></div></div>
+                <span class="btn ghost">노하우 공유하기</span><span class="btn pri">회고 쓰기</span>
+              </div>
+              <div class="tabs"><span class="on">체크리스트</span><span>예산</span><span>자료 3</span><span>회고 기록 1</span></div>
+              <div class="cols">
+                <div class="box" data-a="2">
+                  <div class="groups">
+                    <div class="dday">D-60</div>
+                    <div>
+                      <div class="task"><span class="chk on">✓</span><div class="t"><p class="title done">숙소·버스 견적 2곳 이상 받기</p></div></div>
+                      <div class="task"><span class="chk on">✓</span><div class="t"><p class="title done">예산안 학과 승인 받기</p></div></div>
+                    </div>
+                    <div class="dday now">D-30</div>
+                    <div>
+                      <div class="task"><span class="chk"></span><div class="t"><p class="title">참가 신청 폼 열고 단톡방 공지</p><p class="why">등록금 납부 시기와 겹쳐 신청이 늦게 몰립니다</p></div><div class="owner"><span class="av">참</span>참상아</div></div>
+                      <div class="task"><span class="chk"></span><div class="t"><p class="title">레크리에이션 프로그램 정하기</p><p class="why">조별 레크 준비물 주문에 일주일 걸립니다</p></div><div class="owner"><span class="av">이</span>이도윤</div></div>
+                    </div>
+                    <div class="dday">D-14</div>
+                    <div>
+                      <div class="task" data-a="3"><span class="chk"></span><div class="t"><p class="title">단체 여행자 보험 가입 <span class="from">작년 회고에서 추가</span></p><p class="why">작년에 빠뜨려 학교 결재가 반려됐습니다</p></div><div class="owner"><span class="av">박</span>박서연</div></div>
+                    </div>
+                    <div class="dday">D-7</div>
+                    <div><div class="task"><span class="chk"></span><div class="t"><p class="title">조 편성, 버스 좌석표 만들기</p></div><div class="owner"><span class="av">+</span>담당 정하기</div></div></div>
+                    <div class="dday">D-day</div>
+                    <div><div class="task"><span class="chk"></span><div class="t"><p class="title">인원 확인, 사진 기록</p></div><div class="owner"><span class="av">정</span>정하은</div></div></div>
+                  </div>
+                </div>
+                <div class="box last" data-a="4">
+                  <div class="box-h"><h3>작년 기록</h3><span class="muted small">2026 새내기 배움터</span></div>
+                  <p class="label">작년 회고</p>
+                  <div class="kpt">
+                    <div><b>유지할 점</b><span>조별 레크 반응이 가장 좋았다</span></div>
+                    <div><b>문제였던 점</b><span>보험 가입을 빠뜨려 결재가 반려됐다</span></div>
+                    <div><b>다음에 시도할 점</b><span>D-14에 보험 가입을 체크리스트에 넣자</span></div>
+                  </div>
+                  <p class="label" style="margin-top:16px">이전 임원 인수인계 답변</p>
+                  <div class="qa"><b>Q. 가장 힘들었던 점은?</b><span>A. 숙소 단가 비교요. 견적은 꼭 2곳 이상 받으세요.</span><span class="muted small">김진경 · 인터뷰</span></div>
+                  <div class="qa"><b>Q. 절대 하면 안 되는 것은?</b><span>A. 버스 대절을 구두로만 예약하면 안 돼요.</span><span class="muted small">김진경 · 인터뷰</span></div>
+                  <div class="row" style="margin-top:14px"><div class="field grow">다음 임원에게 남길 한마디</div><span class="btn">남기기</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>행사 요약.</b> 날짜, 장소, 규모, 어디서 복제했는지, D-day, 준비율. 행사가 끝나면 "회고 쓰기"와 "노하우 공유하기"로 이어집니다.</span></li>
+        <li><span><b>D-day 체크리스트.</b> D-60, D-30처럼 시점별로 묶고, 할 일마다 이유와 담당자를 붙입니다. 담당자를 정하면 그 사람 홈(W-01)에 뜹니다.</span></li>
+        <li><span><b>작년 회고에서 추가된 할 일.</b> 작년의 "다음에 시도할 점"이 올해 체크리스트가 된 표시. 회고 루프가 실제로 일하는 모습입니다.</span></li>
+        <li><span><b>작년 기록.</b> 작년 회고 3문항, 이전 임원의 인터뷰 답변, 코멘트를 체크리스트 옆에 붙여 둬 따로 찾아볼 필요가 없습니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-05 인터뷰 ========== -->
+    <article class="screen" id="w05">
+      <div class="screen-head">
+        <h3><span class="code">W-05</span> 인수인계 인터뷰</h3>
+        <div class="tags"><span>S1</span><button class="size-btn" type="button" data-target="fw05">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">이임 임원이 자료를 정리하는 대신, 클럽이의 질문에 채팅하듯 답합니다. 답변은 해당 행사 플레이북에 바로 붙습니다.</p>
+      <div class="frame-wrap" id="fw05">
+        <div class="frame w05">
+          <aside class="side" data-active="handover"></aside>
+          <div class="main">
+            <header class="top" data-title="인수인계" data-user="김진경 · 회장"></header>
+            <div class="body">
+              <div class="box" data-a="1">
+                <div class="box-h"><h3>행사별 인터뷰</h3><span class="muted small">2 / 6 완료</span></div>
+                <div class="bar dark p33"><i></i></div>
+                <div style="margin-top:16px">
+                  <div class="evrow on"><div class="row between"><b>학과 체육대회</b><span class="badge k">3 / 5</span></div><div class="bar dark p60"><i></i></div></div>
+                  <div class="evrow"><div class="row between"><b>중간고사 간식 행사</b><span class="badge">완료</span></div></div>
+                  <div class="evrow"><div class="row between"><b>새내기 배움터</b><span class="badge">완료</span></div></div>
+                  <div class="evrow"><div class="row between"><b>학술제 부스</b><span class="badge">1 / 5</span></div></div>
+                  <div class="evrow"><div class="row between"><b>MT</b><span class="muted small">시작 전</span></div></div>
+                  <div class="evrow"><div class="row between"><b>종강총회</b><span class="muted small">시작 전</span></div></div>
+                </div>
+                <p class="muted small" style="margin-top:14px">행사 하나에 15분 정도 걸려요</p>
+              </div>
+              <div class="chat">
+                <div class="row between"><div class="row"><div class="clubee sm">클럽이</div><b>학과 체육대회 인터뷰</b></div><span class="btn ghost">나중에 이어 하기</span></div>
+                <div class="msgs" data-a="2">
+                  <div class="q"><div class="clubee sm">클럽이</div><p>체육대회를 준비하면서 가장 힘들었던 점은 무엇이었나요?</p></div>
+                  <div class="a">체육관 대관이요. 한 달 전에 마감되는 걸 몰라서 날짜를 한 번 옮겼어요.</div>
+                  <div class="q" data-a="3"><div class="clubee sm">클럽이</div><p>그럼 다음 임원은 언제까지 대관을 신청하면 될까요? 담당 부서도 알려 주세요.</p></div>
+                  <div class="a">D-35까지 학생지원팀에 메일로 신청하면 돼요.</div>
+                  <div class="q"><div class="clubee sm">클럽이</div><p>좋아요. 다음 임원이 체육대회에서 절대 하면 안 되는 것은 무엇인가요?</p></div>
+                  <div class="typing"><div class="ln w90"></div><div class="ln w60"></div></div>
+                </div>
+                <div class="input" data-a="4"><span class="mic">음성</span><span class="grow muted">답변을 입력하세요. 짧아도 괜찮아요.</span><span class="btn ghost">건너뛰기</span><span class="btn pri">보내기</span></div>
+              </div>
+              <div class="stack">
+                <div class="box" data-a="5">
+                  <div class="box-h"><h3>이 답변이 붙는 곳</h3></div>
+                  <div class="attach">
+                    <span class="muted small">학과 체육대회 플레이북</span>
+                    <div class="row"><span class="badge k">D-35</span><b>체육관 대관 신청 (학생지원팀 메일)</b></div>
+                    <p class="why">한 달 전에 마감됨. 작년에 놓쳐서 날짜를 옮김</p>
+                  </div>
+                  <p class="muted small" style="margin-top:10px">답변으로 새 할 일이 만들어졌어요. 수정할 수 있어요.</p>
+                </div>
+                <div class="box qlist">
+                  <div class="box-h"><h3>질문 5개</h3></div>
+                  <div><span class="chk on">✓</span>가장 힘들었던 점</div>
+                  <div><span class="chk on">✓</span>꼭 미리 해야 하는 일과 시점</div>
+                  <div class="cur"><span class="chk"></span>절대 하면 안 되는 것</div>
+                  <div><span class="chk"></span>도움 받은 사람·업체 연락처</div>
+                  <div><span class="chk"></span>다음 임원에게 기대하는 점</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>행사별 진행률.</b> 어떤 행사의 인수인계가 남았는지 한눈에 보여 줍니다. 권한 이전(W-07) 전에 빠진 행사를 알려 주는 근거가 됩니다.</span></li>
+        <li><span><b>질문과 답 대화.</b> 문서를 쓰는 대신 채팅처럼 답합니다. 정리된 자료가 없어도 시작할 수 있다는 점이 기존 서비스와 다릅니다.</span></li>
+        <li><span><b>꼬리 질문.</b> 답이 모호하면 클럽이가 시점, 담당 부서처럼 다음 임원에게 필요한 것을 되묻습니다.</span></li>
+        <li><span><b>입력창.</b> 음성 답변, 건너뛰기, 나중에 이어 하기를 지원해 바쁜 이임 임원의 부담을 줄입니다.</span></li>
+        <li><span><b>이 답변이 붙는 곳.</b> 답변이 어느 행사, 어느 D-day 할 일로 저장되는지 미리 보여 줍니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-06 회고 ========== -->
+    <article class="screen" id="w06">
+      <div class="screen-head">
+        <h3><span class="code">W-06</span> 행사 회고</h3>
+        <div class="tags"><span>S4</span><button class="size-btn" type="button" data-target="fw06">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">행사 다음 날 참여 임원 모두에게 요청되는 3문항 회고. 작년의 개선점을 올해 지켰는지도 함께 체크해 회고 루프를 닫습니다.</p>
+      <div class="frame-wrap" id="fw06">
+        <div class="frame w06">
+          <aside class="side" data-active="retro"></aside>
+          <div class="main">
+            <header class="top" data-title="회고"></header>
+            <div class="body">
+              <div class="form">
+                <div class="coach"><div class="clubee">클럽이</div><div><p class="muted">종강총회 · 12월 18일 (금) · 참석 64명</p><p class="say">종강총회 수고했어요! 3문항이면 끝나요.</p></div></div>
+                <div class="qs" data-a="1">
+                  <div class="qbox"><h4>유지할 점 <small>다음에도 꼭 이렇게 할 것</small></h4><div class="area">사전 신청으로 인원을 확정하니 음식이 남지 않았다.</div><div class="row"><span class="chip">홍보가 잘 됐다</span><span class="chip">장소가 좋았다</span><span class="chip">역할 분담이 잘 됐다</span></div></div>
+                  <div class="qbox"><h4>문제였던 점 <small>힘들었거나 실수한 것</small></h4><div class="area">세미나실 마이크가 고장 나서 진행이 10분 늦어졌다.</div><div class="row"><span class="chip">시간이 부족했다</span><span class="chip">예산이 모자랐다</span><span class="chip">참여가 적었다</span></div></div>
+                  <div class="qbox"><h4>다음에 시도할 점 <small>내년 플레이북에 할 일로 들어가요</small></h4><div class="area muted">예: D-1에 장비 점검하기</div><div class="row"><span class="chip">일정 앞당기기</span><span class="chip">업체 바꾸기</span><span class="chip">설문 받기</span></div></div>
+                </div>
+                <div class="row between" data-a="2">
+                  <div class="nums"><span class="label">참석 인원</span><div class="field">64 명</div><span class="label">실제 지출</span><div class="field">412,000 원</div><span class="btn ghost">영수증 사진</span></div>
+                  <span class="btn pri big">회고 저장하기</span>
+                </div>
+              </div>
+              <div class="stack">
+                <div class="box loop" data-a="3">
+                  <div class="box-h"><h3>작년에 약속한 개선점</h3></div>
+                  <p class="muted small">2025 종강총회 회고의 "다음에 시도할 점"</p>
+                  <p style="font-size:19px;font-weight:800;margin:6px 0 14px">사전 신청을 받아 인원을 확정하자</p>
+                  <p class="label">올해 해냈나요?</p>
+                  <div class="yn"><span class="btn pri">했어요</span><span class="btn ghost">못 했어요</span></div>
+                </div>
+                <div class="box" data-a="4">
+                  <div class="box-h"><h3>임원 회고 현황</h3><span class="muted small">3 / 5</span></div>
+                  <div class="row"><div class="avs"><span class="av lg">참</span><span class="av lg">이</span><span class="av lg">박</span></div><span class="muted small">최민준, 정하은 아직 안 씀</span></div>
+                  <span class="btn ghost" style="margin-top:12px">안 쓴 임원에게 알림</span>
+                </div>
+                <div class="box fill" data-a="5">
+                  <div class="row"><div class="coin-ic badge">+2 코인</div><p class="small">회고를 남기면 노하우 공유에서 쓸 수 있는 코인을 드려요.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>3문항.</b> 유지할 점, 문제였던 점, 다음에 시도할 점. 예시 칩을 눌러 빨리 쓸 수 있습니다. "다음에 시도할 점"은 내년 플레이북의 할 일이 됩니다 (W-04의 3번).</span></li>
+        <li><span><b>숫자 기록.</b> 참석 인원과 실제 지출. 다음 해 예산과 규모를 잡는 근거가 됩니다.</span></li>
+        <li><span><b>작년 개선점 확인.</b> 작년에 약속한 개선을 올해 지켰는지 체크해 회고가 실제 개선으로 이어졌는지 남깁니다.</span></li>
+        <li><span><b>임원 회고 현황.</b> 참여 임원 모두에게 요청하고, 안 쓴 사람에게 다시 알릴 수 있습니다.</span></li>
+        <li><span><b>회고 보상.</b> 회고를 쓰면 코인을 조금 받아 노하우 공유(W-08)에서 씁니다. 기획안 7.2의 "무료 코인".</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-07 권한 이전 ========== -->
+    <article class="screen" id="w07">
+      <div class="screen-head">
+        <h3><span class="code">W-07</span> 임원·권한 이전</h3>
+        <div class="tags"><span>S1</span><button class="size-btn" type="button" data-target="fw07">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">파일을 보내는 대신 사람을 초대하고 역할을 넘기면 인수인계가 끝납니다. 넘기기 전에 빠진 인수인계를 점검합니다.</p>
+      <div class="frame-wrap" id="fw07">
+        <div class="frame w07">
+          <aside class="side" data-active="members"></aside>
+          <div class="main">
+            <header class="top" data-title="임원·권한" data-user="김진경 · 회장"></header>
+            <div class="body">
+              <div class="box" data-a="1">
+                <div class="box-h"><h3>2026 임원</h3><span class="btn ghost">임원 추가</span></div>
+                <table>
+                  <thead><tr><th>이름</th><th>역할</th><th>권한</th><th>인터뷰</th><th>상태</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="row"><span class="av">김</span>김진경</div></td><td>회장</td><td>관리자</td><td>2 / 6</td><td><span class="badge">이임 예정</span></td></tr>
+                    <tr><td><div class="row"><span class="av">이</span>이도윤</div></td><td>부회장</td><td>편집</td><td>1 / 3</td><td><span class="badge">이임 예정</span></td></tr>
+                    <tr><td><div class="row"><span class="av">박</span>박서연</div></td><td>총무</td><td>편집</td><td>0 / 2</td><td><span class="badge">연임</span></td></tr>
+                    <tr><td><div class="row"><span class="av">최</span>최민준</div></td><td>기획부장</td><td>편집</td><td>–</td><td><span class="badge">이임 예정</span></td></tr>
+                    <tr><td><div class="row"><span class="av">정</span>정하은</div></td><td>홍보부장</td><td>편집</td><td>–</td><td><span class="badge">연임</span></td></tr>
+                  </tbody>
+                </table>
+                <div class="sub-h" data-a="2"><span>2027 신임 임원</span><span class="btn pri">신임 임원 초대</span></div>
+                <table>
+                  <tbody>
+                    <tr><td><div class="row"><span class="av">참</span>참상아</div></td><td>회장 (예정)</td><td>초대 수락</td><td><span class="badge k">참여 중</span></td></tr>
+                    <tr><td><div class="row"><span class="av">?</span>new.vice@univ.ac.kr</div></td><td>부회장 (예정)</td><td>초대 보냄</td><td><span class="badge">대기</span></td></tr>
+                  </tbody>
+                </table>
+                <div class="row" style="margin-top:14px"><div class="field grow">clubing.app/join/cse-2027-x8k2</div><span class="btn ghost">초대 링크 복사</span></div>
+              </div>
+              <div class="box" data-a="3">
+                <div class="box-h"><h3>역할 넘기기</h3><span class="muted small">12월 1일 임기 시작</span></div>
+                <div class="map"><div class="field">회장 · 김진경</div><span class="arr">→</span><div class="field">참상아 ▾</div></div>
+                <div class="map"><div class="field">부회장 · 이도윤</div><span class="arr">→</span><div class="field muted">초대 수락 대기 ▾</div></div>
+                <div class="map"><div class="field">기획부장 · 최민준</div><span class="arr">→</span><div class="field muted">선택 ▾</div></div>
+                <p class="label" style="margin-top:18px">함께 넘어가는 것 · 파일 전송 없음</p>
+                <div class="moves"><div><b>6</b>행사·플레이북</div><div><b>14</b>회고</div><div><b>22</b>인터뷰 답변</div><div><b>38</b>자료</div></div>
+                <div class="warn" data-a="4" style="margin-top:16px">
+                  <b>넘기기 전에 확인해 주세요</b>
+                  <span class="small">MT, 종강총회 인터뷰가 아직 시작 전이에요. 행사 하나에 15분이면 돼요.</span>
+                  <span class="btn ghost" style="justify-self:start">인터뷰 이어 하기</span>
+                </div>
+                <div class="row between" data-a="5" style="margin-top:16px"><div><b>이임 후 읽기 권한 남기기</b><p class="muted small">신임 임원이 질문하면 답할 수 있어요</p></div><span class="switch"></span></div>
+                <div class="row" style="margin-top:16px;justify-content:flex-end"><span class="btn pri big">역할 넘기기</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>현재 임원 목록.</b> 역할, 권한, 인터뷰 진행, 이임·연임 상태를 함께 봅니다.</span></li>
+        <li><span><b>신임 임원 초대.</b> 이메일이나 초대 링크로 다음 임원을 미리 들여 인수인계 기간을 겹치게 합니다.</span></li>
+        <li><span><b>역할 넘기기.</b> 역할별로 다음 사람을 고르면 행사, 회고, 답변, 자료가 파일 전송 없이 한 번에 넘어갑니다.</span></li>
+        <li><span><b>빠진 인수인계 점검.</b> 인터뷰가 안 끝난 행사를 넘기기 전에 알려 줍니다.</span></li>
+        <li><span><b>이임 후 읽기 권한.</b> 이전 임원이 읽기 권한으로 남아 신임 임원의 질문에 답할 수 있습니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-08 노하우 공유 ========== -->
+    <article class="screen" id="w08">
+      <div class="screen-head">
+        <h3><span class="code">W-08</span> 노하우 공유 · 둘러보기</h3>
+        <div class="tags"><span>S5</span><span>수익 모델</span><button class="size-btn" type="button" data-target="fw08">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">다른 학과 학생회·동아리가 공유한 플레이북과 회고를 코인으로 열람하고, 우리 노하우를 공유해 코인을 받는 곳입니다.</p>
+      <div class="frame-wrap" id="fw08">
+        <div class="frame w08">
+          <aside class="side" data-active="knowhow"></aside>
+          <div class="main">
+            <header class="top" data-title="노하우 공유"></header>
+            <div class="body">
+              <div class="box fill hero" data-a="1"><div class="clubee">클럽이</div><div class="grow"><p class="say">당신도 클럽이가 될 수 있다.</p><p class="muted">우리 행사의 노하우를 공유하고, 다른 조직의 노하우로 처음 여는 행사도 자신 있게.</p></div><span class="btn pri">내 노하우 공유하기</span></div>
+              <div class="filters" data-a="2">
+                <span class="chip">전체</span><span class="chip">개강총회</span><span class="chip">MT</span><span class="chip">새내기 배움터</span><span class="chip">체육대회</span><span class="chip on">축제·부스</span><span class="chip">간식 행사</span>
+                <span class="grow"></span><span class="chip">학과 학생회</span><span class="chip">동아리</span><span class="chip on">좋아요순 ▾</span>
+              </div>
+              <div class="cards" data-a="3">
+                <div class="card"><div class="img"></div><div class="in"><h4>공대 학술제 부스 플레이북</h4><span class="muted small">학과 학생회 · 회원 120명</span><span class="small">체크리스트 14 · 회고 3 · 답변 5</span><div class="foot"><span class="small">좋아요 42 · 조회 310</span><span class="price">20 코인</span></div></div></div>
+                <div class="card"><div class="img"></div><div class="in"><h4>코딩 동아리 축제 체험 부스</h4><span class="muted small">동아리 · 회원 45명</span><span class="small">체크리스트 11 · 회고 2</span><div class="foot"><span class="small">좋아요 31 · 조회 204</span><span class="price">15 코인</span></div></div></div>
+                <div class="card"><div class="img"></div><div class="in"><h4>먹거리 부스 정산까지 한 번에</h4><span class="muted small">학과 학생회 · 회원 90명</span><span class="small">체크리스트 18 · 회고 4 · 답변 6</span><div class="foot"><span class="small">좋아요 27 · 조회 188</span><span class="price">30 코인</span></div></div></div>
+                <div class="card"><div class="img"></div><div class="in"><h4>첫 축제 부스, 예산 30만 원</h4><span class="muted small">동아리 · 회원 20명</span><span class="small">체크리스트 9 · 회고 1</span><div class="foot"><span class="small">좋아요 19 · 조회 97</span><span class="price">10 코인</span></div></div></div>
+                <div class="card"><div class="img"></div><div class="in"><h4>졸업작품 전시 부스 운영</h4><span class="muted small">학과 학생회 · 회원 150명</span><span class="small">체크리스트 16 · 회고 2</span><div class="foot"><span class="small">좋아요 15 · 조회 120</span><span class="badge">열람함</span></div></div></div>
+                <div class="card"><div class="img"></div><div class="in"><h4>보드게임 동아리 축제 이벤트</h4><span class="muted small">동아리 · 회원 30명</span><span class="small">체크리스트 8 · 회고 2</span><div class="foot"><span class="small">좋아요 12 · 조회 76</span><span class="price">무료</span></div></div></div>
+              </div>
+              <div class="side-col">
+                <div class="box wallet" data-a="4">
+                  <div class="box-h"><h3>내 코인</h3><span class="btn">충전</span></div>
+                  <b>120</b>
+                  <p class="muted small">회고 작성 +2 · 공유 보상 +5 · 열람 -20</p>
+                </div>
+                <div class="box" data-a="5">
+                  <div class="box-h"><h3>내가 공유한 노하우</h3><span class="muted small">2건</span></div>
+                  <div class="mine"><b>컴공 중간고사 간식 행사</b><span class="small">조회 41 · 좋아요 8</span><span class="muted small">다음 보상까지 조회 9회</span><div class="bar dark p60"><i></i></div></div>
+                  <div class="mine"><b>컴공 체육대회 플레이북</b><span class="small">조회 52 · 좋아요 11</span><span class="muted small">보상 2번 받음 · +10 코인</span><div class="bar dark p100"><i></i></div></div>
+                  <p class="muted small" style="margin-top:10px">조회 50회 또는 좋아요 10개마다 5코인</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>슬로건과 공유 버튼.</b> "당신도 클럽이가 될 수 있다." 끝난 행사의 플레이북과 회고를 바로 공유합니다.</span></li>
+        <li><span><b>행사 종류·조직 유형 필터.</b> 처음 여는 행사와 비슷한 규모의 조직을 찾습니다.</span></li>
+        <li><span><b>노하우 카드.</b> 조직 유형, 규모, 들어 있는 것(체크리스트·회고·답변 수), 반응, 가격을 보여 줍니다. 조직 이름은 공유자가 공개 범위를 정합니다.</span></li>
+        <li><span><b>내 코인.</b> 충전과 사용 내역. 회고 작성, 공유 보상으로도 쌓입니다.</span></li>
+        <li><span><b>내 공유 현황.</b> 다음 보상까지 남은 반응을 진행 막대로 보여 공유를 계속하게 합니다. 수치는 기획안 7.2 임시값입니다.</span></li>
+      </ol>
+    </article>
+
+    <!-- ========== W-09 노하우 상세 ========== -->
+    <article class="screen" id="w09">
+      <div class="screen-head">
+        <h3><span class="code">W-09</span> 노하우 상세 · 코인 열람</h3>
+        <div class="tags"><span>S5</span><span>수익 모델</span><button class="size-btn" type="button" data-target="fw09">원본 크기 (1920×1080)</button></div>
+      </div>
+      <p class="purpose">요약과 체크리스트 앞부분은 무료로 보고, 나머지는 코인으로 엽니다. 열람한 노하우는 우리 행사로 바로 가져올 수 있습니다.</p>
+      <div class="frame-wrap" id="fw09">
+        <div class="frame w09">
+          <aside class="side" data-active="knowhow"></aside>
+          <div class="main">
+            <header class="top" data-title="노하우 공유"></header>
+            <div class="body">
+              <div class="head" data-a="1">
+                <div class="img"></div>
+                <div class="grow"><h2>공대 학술제 부스 플레이북</h2><p class="muted">○○대학교 공과대학 학과 학생회 · 회원 120명 · 2026년 11월 · 예산 45만 원</p></div>
+                <span class="btn ghost">좋아요 42</span><span class="btn ghost">조회 310</span>
+              </div>
+              <div class="content">
+                <div class="box fill" data-a="2">
+                  <div class="box-h"><h3>요약</h3><span class="badge">무료 미리보기</span></div>
+                  <p>부스 3개(게임, 작품 전시, 간식)를 임원 6명이 나눠 운영. D-21 학과 사무실 비품 대여 신청이 가장 중요했고, 방문객 410명으로 작년보다 1.5배 늘었다.</p>
+                </div>
+                <div class="box free">
+                  <div class="box-h"><h3>체크리스트 14개 중 3개</h3></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">부스 위치 신청 (총학생회)</p><div class="sub"><span class="badge">D-30</span></div><p class="why">선착순이라 공지 당일 오전에 마감됨</p></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">학과 사무실 비품 대여 신청</p><div class="sub"><span class="badge">D-21</span></div><p class="why">테이블·천막은 다른 학과와 겹쳐 일찍 없어짐</p></div></div>
+                  <div class="task"><span class="chk"></span><div class="t"><p class="title">부스별 담당·교대표 짜기</p><div class="sub"><span class="badge">D-14</span></div></div></div>
+                </div>
+                <div class="locked" data-a="3">
+                  <div class="blur"><div class="ln w75"></div><div class="ln w60"></div><div class="ln w90"></div><div class="ln w45"></div><div class="ln w75"></div></div>
+                  <div class="over"><div><span class="lock"><b>체크리스트 11개 · 회고 3건 · 인수인계 답변 5개가 더 있어요</b></span><span class="muted small">20코인으로 전부 열람할 수 있어요</span></div></div>
+                </div>
+              </div>
+              <div class="stack">
+                <div class="box buy" data-a="4">
+                  <span class="muted">이 노하우 전체 열람</span>
+                  <span class="price">20 코인</span>
+                  <div class="calc"><div><span>내 코인</span><b>120</b></div><div><span>열람 후</span><b>100</b></div></div>
+                  <span class="btn pri big">20코인으로 열람하기</span>
+                  <span class="muted small">코인이 부족하면 충전 화면으로 갑니다</span>
+                </div>
+                <div class="box incl" data-a="5">
+                  <div class="box-h"><h3>열람하면</h3></div>
+                  <div><span>전체 체크리스트</span><b>14개</b></div>
+                  <div><span>행사 회고 (3문항)</span><b>3건</b></div>
+                  <div><span>인수인계 답변</span><b>5개</b></div>
+                  <div><span>내 행사로 가져오기</span><b>W-03으로 복제</b></div>
+                </div>
+                <div class="box fill"><p class="small">공유자는 반응이 쌓일 때마다 코인 보상을 받아요. 좋았다면 좋아요를 눌러 주세요.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="notes">
+        <li><span><b>노하우 정보.</b> 조직 유형, 규모, 시기, 예산과 반응 수. 학교·학과 이름은 공유자가 정한 범위만 보입니다.</span></li>
+        <li><span><b>무료 요약.</b> 무엇이 잘됐는지 핵심을 먼저 보여 구매 전 판단을 돕습니다.</span></li>
+        <li><span><b>무료 체크리스트 앞부분과 잠긴 내용.</b> DreamHack write-up처럼 일부만 공개하고, 잠긴 양을 숫자로 알려 줍니다.</span></li>
+        <li><span><b>코인 열람.</b> 가격, 내 잔액, 열람 후 잔액을 보여 주고 한 번에 엽니다.</span></li>
+        <li><span><b>열람하면 받는 것.</b> 열람한 노하우는 새 행사 만들기(W-03)에서 우리 플레이북으로 복제할 수 있습니다.</span></li>
+      </ol>
+    </article>
+  </section>
+
+  <!-- ===================== 파일 ===================== -->
+  <section class="sec" id="files">
+    <header><h2>파일</h2></header>
+    <div class="files">
+      <p>프로젝트 폴더 <code>outputs/wireframes/</code> 안에 있습니다. Cursor에서 그대로 열어 고칠 수 있습니다.</p>
+      <ul>
+        <li><code>wireframes.html</code> · 이 페이지 (브라우저로 열기)</li>
+        <li><code>wireframes.css</code> · 스타일. 와이어프레임 색은 <code>.frame</code> 안 변수에서 바꿉니다</li>
+        <li><code>wireframes.js</code> · 공통 메뉴, 주석 번호, 크기 맞춤</li>
+        <li><code>사용자시나리오.md</code> · 시나리오 단계별 표</li>
+        <li><code>png/</code> · 화면별 1920×1080 이미지 9장 (Figma, 발표 자료에 붙이기용)</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<script src="wireframes.js"></script>
+</body>
+</html>
